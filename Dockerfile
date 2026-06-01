@@ -5,7 +5,10 @@ WORKDIR /app
 COPY . .
 
 RUN apt-get update && apt-get install -y \
-    zip unzip git curl libpng-dev libonig-dev libxml2-dev
+    zip unzip git curl libpng-dev libonig-dev libxml2-dev libzip-dev
+
+# install PHP extensions
+RUN docker-php-ext-install zip
 
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -13,7 +16,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # install dependencies
 RUN composer install --no-interaction --prefer-dist
 
-# permissions Laravel (IMPORTANT)
+# permissions Laravel
 RUN chmod -R 777 storage bootstrap/cache
 
 EXPOSE 10000
