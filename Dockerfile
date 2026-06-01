@@ -1,3 +1,4 @@
+
 FROM php:8.2-cli
 
 WORKDIR /app
@@ -5,8 +6,7 @@ WORKDIR /app
 COPY . .
 
 RUN apt-get update && apt-get install -y \
-    zip unzip git curl libpng-dev libonig-dev libxml2-dev \
-    chromium chromium-driver
+    zip unzip git curl libpng-dev libonig-dev libxml2-dev libzip-dev
 
 RUN docker-php-ext-install zip
 
